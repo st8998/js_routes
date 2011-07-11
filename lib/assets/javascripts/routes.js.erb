@@ -1,0 +1,7 @@
+window.Routes = {};
+<% Rails.application.routes.routes.each do |route| %>
+    Routes.<%= route.name %>_path = function() {
+        Array.prototype.unshift.call(arguments, '<%= route.path %>');
+        return $.buildPath.apply($, arguments);
+    };
+<% end %>

@@ -30,6 +30,10 @@ module JsRoutes
     File.open(filename, 'w') do |f|
       f << 'window.Routes = {};'
       Rails.application.routes.routes.each do |route|
+        defaults = route.defaults
+
+        continue if defaults.present? && defaults.has?(:exclude_from_js)
+
         f << <<-JS.strip
           Routes.#{route.name}_path = function() {
               Array.prototype.unshift.call(arguments, '#{route.path}');

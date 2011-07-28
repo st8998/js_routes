@@ -12,8 +12,12 @@ $.buildPath = (path, params...) ->
   # try to insert parameters
   $.each paramsHash, (name, value) ->
     if path.match(new RegExp(":#{name}"))
-      pattern = "(.*?)\\(?([\\.\\/]?):#{name}(\\(.*?\\)|[^\\)]*)?\\)?(.*)"
+      pattern = "(.*?)\\(([\\.\\/\\w]*?):#{name}(\\(.*?\\)|[^\\)]*)?\\)(.*)"
       replacement = "$1$2#{value}$3$4"
+      path = path.replace new RegExp(pattern), replacement
+
+      pattern = "(.*?):#{name}(.*)"
+      replacement = "$1#{value}$2"
       path = path.replace new RegExp(pattern), replacement
     else extraParams[name] = value
 

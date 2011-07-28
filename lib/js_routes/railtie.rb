@@ -32,14 +32,14 @@ module JsRoutes
       Rails.application.routes.routes.each do |route|
         defaults = route.defaults
 
-        continue if defaults.present? && defaults.has?(:exclude_from_js)
-
-        f << <<-JS.strip
-          Routes.#{route.name}_path = function() {
-              Array.prototype.unshift.call(arguments, '#{route.path}');
-              return $.buildPath.apply($, arguments);
-          };
-        JS
+        unless defaults.present? && defaults.has?(:exclude_from_js) && defaults[:exclude_from_js]
+          f << <<-JS.strip
+            Routes.#{route.name}_path = function() {
+                Array.prototype.unshift.call(arguments, '#{route.path}');
+                return $.buildPath.apply($, arguments);
+            };
+          JS
+        end
       end
     end
   end

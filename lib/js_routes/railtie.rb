@@ -7,6 +7,10 @@ module JsRoutes
     end
 
     config.after_initialize do
+
+      JsRoutes.generate_routes_file
+      FileUtils.cp File.expand_path('../../assets/javascripts/jquery.pathBuilder.js', __FILE__), File.join(Rails.root, 'public', 'javascripts')
+
       if Rails.env.development?
         ApplicationController.class_eval do
           before_filter do
@@ -14,11 +18,6 @@ module JsRoutes
           end
         end
       end
-    end
-
-    initializer 'js_routes.generate_routes_file', :after=> :build_middleware_stack do |app|
-      JsRoutes.generate_routes_file
-      FileUtils.cp File.expand_path('../../assets/javascripts/jquery.pathBuilder.js', __FILE__), File.join(Rails.root, 'public', 'javascripts')
     end
 
   end

@@ -28,6 +28,7 @@ module JsRoutes
     FileUtils.rm filename, :force => true
     File.open(filename, 'w') do |f|
       f << 'window.Routes = {};'
+      Rails.application.reload_routes!
       Rails.application.routes.routes.each do |route|
         defaults = route.defaults
 

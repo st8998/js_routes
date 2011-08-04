@@ -8,8 +8,8 @@ module JsRoutes
 
     config.after_initialize do
 
-      JsRoutes.generate_routes_file
-      FileUtils.cp File.expand_path('../../assets/javascripts/jquery.pathBuilder.js', __FILE__), File.join(Rails.root, 'public', 'javascripts')
+      #JsRoutes.generate_routes_file
+      #FileUtils.cp File.expand_path('../../assets/javascripts/jquery.pathBuilder.js', __FILE__), File.join(Rails.root, 'public', 'javascripts')
 
       if Rails.env.development?
         ApplicationController.class_eval do

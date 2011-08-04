@@ -12,6 +12,9 @@ Gem::Specification.new do |s|
   s.summary     = %q{}
   s.description = %q{}
 
+  s.add_development_dependency "bundler", "~> 1.0.0"
+  s.add_development_dependency "rails",   "~> 3.0"
+
   #s.rubyforge_project = "js_routes"
 
   s.files         = `git ls-files`.split("\n")

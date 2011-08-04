@@ -3,7 +3,7 @@ module JsRoutes
   class Railtie < ::Rails::Railtie
 
     rake_tasks do
-      load "tasks/js_routes.rake"
+      Dir[File.join(File.dirname(__FILE__), '../tasks/*.rake')].each { |f| load f }
     end
 
     config.before_configuration do

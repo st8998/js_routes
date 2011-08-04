@@ -2,6 +2,10 @@ module JsRoutes
 
   class Railtie < ::Rails::Railtie
 
+    rake_tasks do
+      load "tasks/js_routes.rake"
+    end
+
     config.before_configuration do
       config.action_view.javascript_expansions[:defaults] |= %w{ js_routes jquery.pathBuilder.js }
     end

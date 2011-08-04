@@ -10,7 +10,7 @@ module JsRoutes
       def copy_pathbuilder
         say_status("copying", "jquery.pathBuilder.js (#{JsRoutes::VERSION})", :green)
 
-        copy_file "jquery.pathBuilder.js", "public/javascript/jquery.pathBuilder.js"
+        copy_file "jquery.pathBuilder.js", "public/javascripts/jquery.pathBuilder.js"
       end
     end
   end

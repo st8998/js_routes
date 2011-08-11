@@ -2,6 +2,10 @@ module JsRoutes
 
   class Railtie < ::Rails::Railtie
 
+    initializer "js_routes.insert_middleware" do |app|
+
+    end
+
     rake_tasks do
       Dir[File.join(File.dirname(__FILE__), '../tasks/*.rake')].each { |f| load f }
     end

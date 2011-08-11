@@ -1,9 +1,23 @@
 module JsRoutes
 
+  class Middleware
+    def initialize app
+      @app = app
+    end
+
+    def call(env)
+      JsRoutes.generate_routes_file
+
+      @app.call(env)
+    end
+  end
+
   class Railtie < ::Rails::Railtie
 
     initializer "js_routes.insert_middleware" do |app|
-
+      if Rails.env.development?
+        app.config.middleware.insert_after ActionDispatch::Head, JsRoutes::Middleware
+      end
     end
 
     rake_tasks do
@@ -12,20 +26,6 @@ module JsRoutes
 
     config.before_configuration do
       config.action_view.javascript_expansions[:defaults] |= %w{ js_routes jquery.pathBuilder.js }
-    end
-
-    config.after_initialize do
-
-      #JsRoutes.generate_routes_file
-      #FileUtils.cp File.expand_path('../../assets/javascripts/jquery.pathBuilder.js', __FILE__), File.join(Rails.root, 'public', 'javascripts')
-
-      if Rails.env.development?
-        ApplicationController.class_eval do
-          before_filter do
-            JsRoutes.generate_routes_file
-          end
-        end
-      end
     end
 
   end

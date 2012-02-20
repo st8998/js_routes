@@ -1,7 +1,10 @@
+<%= depend_on Rails.root.join('config', 'routes.rb') %>
+<%= require_asset 'jquery.pathBuilder' %>
+
 window.Routes = {};
-<% Rails.application.routes.routes.each do |route| %>
-    Routes.<%= route.name %>_path = function() {
-        Array.prototype.unshift.call(arguments, '<%= route.path %>');
-        return $.buildPath.apply($, arguments);
-    };
+<% Rails.application.routes.routes.reject {|r| r.defaults['hidden'] || r.name.blank?}.each do |route| %>
+Routes.<%= route.name %>_path = function () {
+  Array.prototype.unshift.call(arguments, '<%= route.path.spec %>');
+  return $.buildPath.apply($, arguments);
+};
 <% end %>
